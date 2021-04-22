@@ -1,0 +1,54 @@
+<!-- <%- include('./templates/header.ejs') %> -->
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<section id="services" class="services section-bg">
+    <div class="container">
+
+      <div class="section-title">
+        <h2>Task Lists</h2>
+        <hr>
+        <% if(tasks.length>0) { %>
+        <% var count = 0 %>
+        <% for(let i=0;i < tasks.length ; i++) { %>
+            <% if(tasks[i].status == 'pending'){%>
+                <% ++count %>
+            <% } %>    
+        <% } %>
+        <% } %>  
+    </div>
+
+       
+      <div class="row">
+
+            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" style="margin-bottom: 1vw;">
+                <a href="/task"> <div class="icon-box" style="height: 325px;width: 325px;">
+                <div class="icon">  <i class="bx bx-plus"></i></div>
+                <h4> Add new task</h4>
+                </div></a>  
+            </div>
+            <% if(tasks.length>0){ %>
+            <% for(let i = 0;i < tasks.length ; i++) { %>
+                <% if(tasks[i].status === 'PENDING'){%>
+            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" style="margin-bottom: 1vw;">
+                <div class="icon-box" style="height: 325px;width: 325px;">
+                    <div class="icon"><i class="bx bx-file"></i></div>
+                    <h4><a href="#"><%= tasks[i].title %></a></h4>
+                    <h6><%= tasks[i].content %> </h6>
+                    <p> Status:&nbsp;<em> <%= tasks[i].status %></em> </p> <hr>
+                
+                    <form action="/deleteTask/<%=tasks[i].taskID%>" method="post">
+                    <button type="submit" value="<%=tasks[i].taskID%>">Delete</button>
+                    </form>
+                   
+                </div>
+            </div> 
+             <% } %>
+            <% } %>
+            <% } %>
+      </div>
+
+    </div>
+</section>
+</body>
+</html>

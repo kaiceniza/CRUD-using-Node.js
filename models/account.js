@@ -1,10 +1,12 @@
-const {DataTypes} = require("sequalize");
+const {DataTypes} = require("sequelize");
 const instance =  require("../connection");
 
 const account = instance.sequlize.define("accounts", {
     id: {
         type: DataTypes.BIGINT,
-        allowNull: false
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true
       },
       code:{
         type: DataTypes.STRING,
@@ -22,6 +24,7 @@ const account = instance.sequlize.define("accounts", {
         createdAt: true,
         updatedAt: true,
         deletedAt: true,
+        paranoid: true,
         tableName: "accounts"
     }
 )

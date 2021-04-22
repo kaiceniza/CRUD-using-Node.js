@@ -1,0 +1,52 @@
+<!-- <%- include('./templates/header.ejs') %> -->
+<body>
+  <section>
+      <form action="/create" method="POST">
+      <div class="container">
+        <div class="row justify-content-center">
+
+          <div class="col-12 col-md-8 col-lg-8 col-xl-6">
+            <div class="row">
+              <div class="col text-center">
+                <h1>Register<strong> </strong></h1>
+                <p class="text-h3">Create an Account</p>
+                <% if( typeof(err) != 'undefined') { %>
+                 <h5 style="color:red"> <%= err %> </h5>
+                <% }%>
+              </div>
+            </div>
+            <div class="row align-items-center">
+              <div class="col mt-4">
+                <input type="text" name="userName" class="form-control" placeholder="Username" required>
+              </div>
+            </div>
+            <div class="row align-items-center mt-4">
+              <div class="col">
+                <input type="email" name="email" class="form-control" placeholder="Email" required>
+              </div>
+            </div>
+            <div class="row align-items-center mt-4">
+              <div class="col">
+                <input type="password" name="password" class="form-control" placeholder="Password"  required>
+              </div>
+              <div class="col">
+                <input type="password" name="password2" class="form-control" placeholder="Confirm Password">
+              </div>
+            </div>
+            <div class="row justify-content-start mt-4">
+              <div class="col">
+             
+                <input type="submit" class="btn btn-primary mt-4">
+              </div>
+              <a href='/'>Go Back</a>
+            </div>
+          </div>
+
+        
+        
+      </div>
+  </form>
+    </section>
+</body>
+
+</html>
