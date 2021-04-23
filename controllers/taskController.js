@@ -1,14 +1,14 @@
 const task = require("../models/task");
 
 exports.getTask = (req, res) =>{ 
-    if(req.session.uuid){
+    if(req.session.code){
         task.model.findAll({
-            where:{ account_uuid: req.session.uuid
+            where:{ account_uuid: req.session.code
             }
         }).then(tasks =>{
             req.session.tasks = tasks;
             if(tasks){
-                res.render("home",{username: req.session.username,uuid: req.session.uuid, tasks:req.session.tasks,loggedIn:req.session.loggedIn});
+                res.render("home",{username: req.session.userName,code: req.session.code, tasks:req.session.tasks,loggedIn:req.session.loggedIn});
             }
         })
     }else{
@@ -17,8 +17,8 @@ exports.getTask = (req, res) =>{
 }
 
 exports.makeTask = (req, res) =>{
-    if(req.session.uuid){
-        res.render("createTask",{username: req.session.username,uuid: req.session.uuid, tasks:req.session.tasks,loggedIn:req.session.loggedIn});
+    if(req.session.code){
+        res.render("createTask",{username: req.session.userName,code: req.session.code, tasks:req.session.tasks,loggedIn:req.session.loggedIn});
     }else{
         res.redirect("/");
     }
@@ -26,15 +26,15 @@ exports.makeTask = (req, res) =>{
 
 exports.createTask = async (req, res) => {
 
-    if(req.session.uuid){
+    if(req.session.code){
         let result = await task.model.create({
-            account_uuid: req.session.uuid, 
+            account_code: req.session.code, 
             task_name: req.query.task,
             description: req.query.desc,
             status: "pending"
         })
         if(!result){
-            res.render("/createTask",{username: req.session.username,uuid: req.session.uuid, tasks:req.session.tasks,loggedIn:req.session.loggedIn});
+            res.render("/createTask",{username: req.session.userName,code: req.session.code, tasks:req.session.tasks,loggedIn:req.session.loggedIn});
         }else{
             res.redirect("/task");
         }
@@ -45,7 +45,7 @@ exports.createTask = async (req, res) => {
 
 exports.updateTask = async (req, res) => {   
 
-    if(req.session.uuid){
+    if(req.session.code){
         let result = await task.model.update({status:"completed"} ,
         {
             where:{
@@ -63,7 +63,7 @@ exports.updateTask = async (req, res) => {
 }
 
 exports.deleteTask = async (req, res) => {
-    if(req.session.uuid){
+    if(req.session.code){
         await task.model.destroy({
             where: {
                 id: req.query.id

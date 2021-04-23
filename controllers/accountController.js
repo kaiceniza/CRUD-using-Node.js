@@ -20,21 +20,23 @@ exports.createAccount = async (req, res) => {
     //console.log("Create an account");
     //console.log(req.body);
     var salt = bcrypt.genSaltSync(saltRounds);
-    var hash = bcrypt.hashSync(req.body.password,salt);
     
+    var hash = bcrypt.hashSync(req.body.password,salt);
+    console.log("hatdog", salt)
+    console.log("hatdog", hash)
    await account.model.create({
-                uuid: generateCode(),
-                username: req.body.username,
+                code: generateCode(),
+                username: req.body.userName,
                 password: hash
     }).then(result => {
         if(result){
             res.redirect('/');
-            console.log("loll");
         }
     }).catch(err => {
+        console.log(err)
         res.render("create",{err:"Error"})
-    })
 
+    })
 }
 
 // exports.readAccount = async (req, res) => {
@@ -76,7 +78,7 @@ exports.loginAccount = async (req, res) => {
             if( (data.username == req.body.userName) && result){
                 req.session.loggedIn = true;
                 req.session.username = data.username;
-                req.session.uuid = data.uuid;
+                req.session.code= data.code;
                 res.redirect("/task");
             }else{
                 res.redirect("/");
