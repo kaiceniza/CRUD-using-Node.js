@@ -21,6 +21,7 @@ exports.createAccount = async (req, res) => {
     //console.log(req.body);
     var salt = bcrypt.genSaltSync(10);
     var hash = bcrypt.hashSync(req.body.password,salt);
+    
    await account.model.create({
                 code: generateCode(),
                 username: req.body.username,
@@ -30,7 +31,7 @@ exports.createAccount = async (req, res) => {
             res.redirect('/');
         }
     }).catch(err => {
-        res.render("create",{err:"Cannot create account!"})
+        res.render("create",{err:"Error"})
     })
 
 }
