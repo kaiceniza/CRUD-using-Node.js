@@ -5,5 +5,7 @@ exports.checking = (req, res) => {
     if(req.body.id){
         console.log(req.body);
         next();
+    }else{
+        res.send("No ID No Entry");
     }
 }

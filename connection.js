@@ -1,5 +1,5 @@
 const{Sequelize0, Sequelize} = require("sequelize");
-const sequlize = new Sequelize("tasks", "root", "", {
+const sequelize = new Sequelize("tasks", "root", "", {
     host:"localhost",
     dialect: "mysql",
     pool: {
@@ -14,9 +14,9 @@ const sequlize = new Sequelize("tasks", "root", "", {
 })
 
 try{
-    sequlize.authenticate();
+    sequelize.authenticate();
 }catch(err){
     console.log(err);
 }
 
-exports.sequlize = sequlize;
+exports.sequelize = sequelize;
