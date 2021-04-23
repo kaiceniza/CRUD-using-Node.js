@@ -1,6 +1,6 @@
 const account = require("../models/account");
 const bcrypt = require('bcrypt');
-
+const saltRounds = 10;
 
 var generateCode = () => {
     let generate = "";
@@ -19,16 +19,17 @@ exports.registerAccount = (req,res) => {
 exports.createAccount = async (req, res) => {
     //console.log("Create an account");
     //console.log(req.body);
-    var salt = bcrypt.genSaltSync(10);
+    var salt = bcrypt.genSaltSync(saltRounds);
     var hash = bcrypt.hashSync(req.body.password,salt);
     
    await account.model.create({
-                code: generateCode(),
+                uuid: generateCode(),
                 username: req.body.username,
                 password: hash
     }).then(result => {
         if(result){
             res.redirect('/');
+            console.log("loll");
         }
     }).catch(err => {
         res.render("create",{err:"Error"})
@@ -64,7 +65,7 @@ exports.createAccount = async (req, res) => {
 //     res.send({value: data});
 // }
 exports.loginAccount = async (req, res) => {
-    let data = await account.model.findOne({where: {username: req.body.username}});
+    let data = await account.model.findOne({where: {username: req.body.userName}});
 
     if (data.username === null) {
         console.log('Not found!');
@@ -72,10 +73,10 @@ exports.loginAccount = async (req, res) => {
     } else {
         bcrypt.compare(req.body.password, data.password, (err, result) => {
             if(err){throw err;}
-            if( (data.username == req.body.username) && result){
+            if( (data.username == req.body.userName) && result){
                 req.session.loggedIn = true;
                 req.session.username = data.username;
-                req.session.code = data.code;
+                req.session.uuid = data.uuid;
                 res.redirect("/task");
             }else{
                 res.redirect("/");
