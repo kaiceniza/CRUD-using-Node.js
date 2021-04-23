@@ -2,7 +2,7 @@
 
 <body>
     <section>
-        <form action="/createTask" method="POST" id="createTask">
+        <form action="/task/create_task" method="POST" id="createTask">
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-12 col-md-8 col-lg-8 col-xl-6">
@@ -26,7 +26,7 @@
                     <input type="hidden" name="id" value='<%= data[0].id %>'>
                   <button type="submit" class="btn btn-primary mt-4">Create Task</button>
                 </div>
-                <a href='/home'>Back</a>
+                <a href='/task'>Back</a>
               </div>
             </div>
 

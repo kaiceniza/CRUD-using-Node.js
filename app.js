@@ -13,7 +13,7 @@ const   accountRoutes = require('./routes/accountRoutes'),
 app.set('view engine','ejs')
 app.use(express.static(__dirname + '/public'));
 app.use(session({
-    secret: "12345686",
+    secret: "12345678",
     resave: false,
     saveUninitialized: false    
 }));
@@ -28,7 +28,7 @@ app.get("/logout", (req,res) => {
 })
 
 //routes
-app.use("/accounts", accountRoutes);
+app.use("/account", accountRoutes);
 app.use("/task", taskRoutes);
 
 app.listen(3000);
