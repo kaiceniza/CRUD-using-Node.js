@@ -28,9 +28,9 @@ exports.createTask = async (req, res) => {
 
     if(req.session.code){
         let result = await task.model.create({
-            account_code: req.session.code, 
-            task_name: req.query.task,
-            description: req.query.desc,
+            account_uuid: req.session.code, 
+            task_name: req.query.title,
+            description: req.query.content,
             status: "pending"
         })
         if(!result){

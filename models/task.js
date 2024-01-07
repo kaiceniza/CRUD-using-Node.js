@@ -10,11 +10,11 @@ const tasks = db.sequelize.define("tasks", {
       },
       account_uuid:{
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       task_name:{
         type: DataTypes.STRING,   
-        allowNull: false,
+        allowNull: true,
       },
       description: {
         type: DataTypes.STRING

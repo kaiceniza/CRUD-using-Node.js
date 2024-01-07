@@ -22,8 +22,8 @@ exports.createAccount = async (req, res) => {
     var salt = bcrypt.genSaltSync(saltRounds);
     
     var hash = bcrypt.hashSync(req.body.password,salt);
-    console.log("hatdog", salt)
-    console.log("hatdog", hash)
+    // console.log("hatdog", salt)
+    // console.log("hatdog", hash)
    await account.model.create({
                 code: generateCode(),
                 username: req.body.userName,
